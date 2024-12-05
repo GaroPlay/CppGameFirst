@@ -7,7 +7,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include <Kismet/GameplayStatics.h>
 
-ABaseCharacter::ABaseCharacter()
+ABaseCharacter::ABaseCharacter() : Super()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false; // тут конструктр включает при создание персонажа в нем тик.
@@ -47,7 +47,8 @@ void ABaseCharacter::AddHealt(float AddedHealt)
 void ABaseCharacter::EatFood()
 {
 	CountFoods++;
-	UGameplayStatics::PlaySoundAtLocation(this, Sound, GetActorLocation());
+
+	if(Sound != nullptr) UGameplayStatics::PlaySoundAtLocation(this, Sound, GetActorLocation());
 }
 
 // Called when the game starts or when spawned
