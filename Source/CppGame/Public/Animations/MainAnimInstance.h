@@ -20,8 +20,9 @@ public:
 	 // Event BluePrint Update Animation - так эта функция называется в движке.
 	 
 protected:
-	 APawn* Pawn;
+	// Анимационый BluePrin знает пешку к которой принадлежит и это часто бывает нужно,
+	 APawn* Pawn;// но анимационый общается с Character через Pawn.
 
-	 UPROPERTY(EditDefaultOnly,BlueprintReadOnly)
-	 float Speed;
+	 UPROPERTY(EditDefaultsOnly,BlueprintReadOnly) // Это для GameDisagner.
+	 float Speed;// Это переменая для оси Horizantal в BlendSpace.
 };
