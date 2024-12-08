@@ -23,16 +23,19 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
-	UPROPERTY(VisibleAnywhere)
-	USpringArmComponent* CameraBoom;
-	UPROPERTY(VisibleAnywhere)
-	UCameraComponent* FollowCamera; 
+	UPROPERTY(VisibleAnywhere)//Делаем настройки этого объекта полность видемыми в Details BluePrint.
+	USpringArmComponent* CameraBoom;// Так объявляется объект который типа SpringArm или селфи палка.
+	
+	UPROPERTY(VisibleAnywhere)//Делаем настройки этого объекта полность видемыми в Details BluePrint.
+	UCameraComponent* FollowCamera; // Так объявляется объект типа Camera синего цвета.
 
 	void MoveFB(float ScaleValue);
 	void MoveLR(float ScaleValue);
-
+	void Jump();
+	void StopJump();
+	// Эта функция в Header-файле. 
 	void Move (EAxis::Type axis, float ScaleValue);
 	
-
+	
 };
 	
