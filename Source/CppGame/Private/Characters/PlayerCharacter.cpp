@@ -40,6 +40,10 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::Jump()	  {
 	bPressedJump = true;
+
+	if (AnimMontageJump != nullptr) {
+		PlayAnimMontage(AnimMontageJump);
+	}
 }
 
 void APlayerCharacter::StopJump() {

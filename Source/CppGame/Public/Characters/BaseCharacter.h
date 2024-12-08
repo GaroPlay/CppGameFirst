@@ -46,7 +46,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Settings")
 	 UAnimMontage* AnimMontageDeath;// Тип данных, знак(*) обезательно, уникальное имя.
-
+	
 
 
 	void Damage();

@@ -69,9 +69,10 @@ void ABaseCharacter::Damage()
 void ABaseCharacter::Dead()
 {
 	if(AnimMontageDeath!= nullptr) PlayAnimMontage(AnimMontageDeath);// Это метод есть у character,
-		  //и ему просто надо подать переменую которая указывает на анимационую последовательность.
+		  //и ему просто надо подать переменую которая указывает на Animation Montage.
 		 // есть такая же нода Play Anim Montage.
 	UnPossessed();// Этот метод лещит контролер игрока упровления над пешкой.
+	
 	GetMesh()->SetSimulatePhysics(true);
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }

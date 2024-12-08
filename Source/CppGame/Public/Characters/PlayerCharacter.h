@@ -29,13 +29,15 @@ private:
 	UPROPERTY(VisibleAnywhere)//Делаем настройки этого объекта полность видемыми в Details BluePrint.
 	UCameraComponent* FollowCamera; // Так объявляется объект типа Camera синего цвета.
 
+	UPROPERTY(EditDefaultsOnly, Category = "Settings")
+	UAnimMontage* AnimMontageJump;// Монтаж с прышком хранит каждая пешка сама,так как я не знаю кто конкретно имеет анимацию прыжка.
+
 	void MoveFB(float ScaleValue);
 	void MoveLR(float ScaleValue);
 	void Jump();
 	void StopJump();
 	// Эта функция в Header-файле. 
 	void Move (EAxis::Type axis, float ScaleValue);
-	
 	
 };
 	

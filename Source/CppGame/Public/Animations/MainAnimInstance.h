@@ -25,4 +25,6 @@ protected:
 
 	 UPROPERTY(EditDefaultsOnly,BlueprintReadOnly) // Это для GameDisagner.
 	 float Speed;// Это переменая для оси Horizantal в BlendSpace.
+
+
 };
