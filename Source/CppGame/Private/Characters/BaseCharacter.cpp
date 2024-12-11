@@ -21,12 +21,7 @@ ABaseCharacter::ABaseCharacter() : Super()
 	HealtComponent = CreateDefaultSubobject< UHealtComponent > (TEXT("HealtComponent"));
 
 	HealtComponent->DispatcherDead.AddDynamic ( this, &ABaseCharacter::OnDead);
-	// HealtComponent - Это тот клас в котором создан Event Dispatcher.
-	//->DispatcherDead - Это имя самого Event Dispatcher.
-	//.AddDynamic -Это синтаксис (компилятор не подскажет сука).
-	// this - Это указатель на объект который обработает полученый вызов обычно тут this.
-	// &ABaseCharacter::OnDead - Это указатель на функцию которая произойдет когда получен вызов.
-	// Это Сpp-фаил.
+
 }
   
 FText ABaseCharacter::GetName()
@@ -34,7 +29,7 @@ FText ABaseCharacter::GetName()
 	return FText::FromString( UKismetSystemLibrary::GetDisplayName(this));
 }
 
-float ABaseCharacter::GetCountFoods()// у этой функции надо помяньть float на int
+float ABaseCharacter::GetCountFoods()
 {
 	return  CountFoods;
 }
@@ -97,22 +92,38 @@ void ABaseCharacter::Damage()
 
 void ABaseCharacter::OnDead()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 0.1, FColor::Green, TEXT("DeatPlayer"));// не забыть удалить это Print String
-
 	if (AnimMontageDeath != nullptr) 
 	{
-		PlayAnimMontage(AnimMontageDeath);
+		PlayAnimMontage(AnimMontageDeath);	
 	} 	
 	
-
-	UnPossessed();
+	GetWorldTimerManager().SetTimer(ABaseCharacter::FallingTimer, this, &ABaseCharacter::PlayerPosses, 0.1f, true, 0.0);
 	
-	GetMesh()->SetSimulatePhysics(true);
-
-	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
-
 }
+void ABaseCharacter::PlayerPosses()
+{
+	
+	
+	if (GetCharacterMovement()->IsFalling() == true)
+	{
+			
+	}
+	else
+	{
+		UnPossessed();
+		GetMesh()->SetSimulatePhysics(true);
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		 
+	}
+
+	if (!GetCharacterMovement()->IsFalling())
+	{
+		GetWorldTimerManager().ClearTimer(FallingTimer);
+	}
+}
+
+
+
 
 
 

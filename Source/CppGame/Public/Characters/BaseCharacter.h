@@ -54,6 +54,9 @@ private:
 
     UFUNCTION(BlueprintCallable)
 	void OnDead();
+	
+	void PlayerPosses();
 
 
+	FTimerHandle FallingTimer;
 };
