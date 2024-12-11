@@ -52,6 +52,7 @@ void APlayerCharacter::StopJump() {
 
 void APlayerCharacter::MoveFB(float ScaleValue) {	
 	Move(EAxis::X, ScaleValue);
+
 }
 void APlayerCharacter::MoveLR(float ScaleValue) {
 	Move(EAxis::Y, ScaleValue);

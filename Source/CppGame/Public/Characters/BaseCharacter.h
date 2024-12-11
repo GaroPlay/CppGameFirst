@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/HealtComponent.h" 
 #include "BaseCharacter.generated.h"
 
 UCLASS()
@@ -12,11 +13,8 @@ class CPPGAME_API ABaseCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+	
 	ABaseCharacter();
-
-	
-	
 
 	FText GetName();
 
@@ -37,8 +35,11 @@ protected:
 private:
 	int CountFoods;
 	float TimerRate;
-	
-	UPROPERTY(EditDefaultsOnly,Category="Settings")
+
+	UPROPERTY(VisibleAnywhere)// Обезательно.
+	UHealtComponent* HealtComponent;
+
+	UPROPERTY(EditDefaultsOnly,Category="Settings",meta = (ClampMin = "0",ClampMax ="100"))
 	float DamegePerSecond;
 
 	UPROPERTY(EditDefaultsOnly,Category = "Settings")
@@ -48,9 +49,11 @@ private:
 	 UAnimMontage* AnimMontageDeath;// Тип данных, знак(*) обезательно, уникальное имя.
 	
 
-
+	
 	void Damage();
-	void Dead();
+
+    UFUNCTION(BlueprintCallable)
+	void OnDead();
 
 
 };

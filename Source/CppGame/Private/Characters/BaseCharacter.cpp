@@ -17,8 +17,18 @@ ABaseCharacter::ABaseCharacter() : Super()
 	TimerRate = 0.1;
 	GetMesh()->SetCollisionProfileName ("SkeletalMesh");
 	GetCharacterMovement()->bOrientRotationToMovement = true;	
-}
 
+	HealtComponent = CreateDefaultSubobject< UHealtComponent > (TEXT("HealtComponent"));
+
+	HealtComponent->DispatcherDead.AddDynamic ( this, &ABaseCharacter::OnDead);
+	// HealtComponent - Это тот клас в котором создан Event Dispatcher.
+	//->DispatcherDead - Это имя самого Event Dispatcher.
+	//.AddDynamic -Это синтаксис (компилятор не подскажет сука).
+	// this - Это указатель на объект который обработает полученый вызов обычно тут this.
+	// &ABaseCharacter::OnDead - Это указатель на функцию которая произойдет когда получен вызов.
+	// Это Сpp-фаил.
+}
+  
 FText ABaseCharacter::GetName()
 {
 	return FText::FromString( UKismetSystemLibrary::GetDisplayName(this));
@@ -31,50 +41,77 @@ float ABaseCharacter::GetCountFoods()// у этой функции надо помяньть float на in
 
 float ABaseCharacter::GetHealt()
 {
+	if (HealtComponent != nullptr) 
+	{
+		return HealtComponent->GetHealt();
+	}
 	return 0.0f;
 }
 
 bool ABaseCharacter::IsDead()
 {
-	return false;
+	if (HealtComponent != nullptr) 
+	{
+		return HealtComponent->GetIsDead();
+	}
+	return 0;
 }
 
 void ABaseCharacter::AddHealt(float AddedHealt)
 {
-
+	if (HealtComponent != nullptr)
+	{
+		HealtComponent->AddHealt(AddedHealt);
+	}
 }
 
 void ABaseCharacter::EatFood()
 {
 	CountFoods++;
 
-	if(Sound != nullptr) UGameplayStatics::PlaySoundAtLocation(this, Sound, GetActorLocation());
+	if (Sound != nullptr) 
+	{
+	  UGameplayStatics::PlaySoundAtLocation(this, Sound, GetActorLocation());
+	} 
 }
 
 // Called when the game starts or when spawned
-void ABaseCharacter::BeginPlay()
-{
+
+void ABaseCharacter::BeginPlay() {
 	Super::BeginPlay();
+
 	FTimerHandle DamageTimer;// Тут создаем переменую типа таймер она нужна чтобы хранить таймер.
-	GetWorldTimerManager().SetTimer(DamageTimer,this, &ABaseCharacter::Damage, TimerRate,true,0.1);// Тут я думаю что при нуле,
-																								 //таймер не разу не сработает.
-	
+	GetWorldTimerManager().SetTimer(DamageTimer,this, &ABaseCharacter::Damage, TimerRate,true,0.0);
 }
 
 void ABaseCharacter::Damage()
 {
-	 
+	if (HealtComponent != nullptr)
+	{
+		HealtComponent->Damage(TimerRate * DamegePerSecond);
+	}
+	//  Снизу дебаг не забыть убрать !!!
+	 GEngine->AddOnScreenDebugMessage(-1, 0.1, FColor::Red, FString::FromInt(GetHealt()));// не забыть удалить это Print String
+	
 }
 
-void ABaseCharacter::Dead()
+void ABaseCharacter::OnDead()
 {
-	if(AnimMontageDeath!= nullptr) PlayAnimMontage(AnimMontageDeath);// Это метод есть у character,
-		  //и ему просто надо подать переменую которая указывает на Animation Montage.
-		 // есть такая же нода Play Anim Montage.
-	UnPossessed();// Этот метод лещит контролер игрока упровления над пешкой.
+	GEngine->AddOnScreenDebugMessage(-1, 0.1, FColor::Green, TEXT("DeatPlayer"));// не забыть удалить это Print String
+
+	if (AnimMontageDeath != nullptr) 
+	{
+		PlayAnimMontage(AnimMontageDeath);
+	} 	
+	
+
+	UnPossessed();
 	
 	GetMesh()->SetSimulatePhysics(true);
+
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+
 }
 
 
