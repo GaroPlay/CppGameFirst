@@ -102,26 +102,18 @@ void ABaseCharacter::OnDead()
 }
 void ABaseCharacter::PlayerPosses()
 {
-	
-	
-	if (GetCharacterMovement()->IsFalling() == true)
-	{
-			
-	}
-	else
+		
+	if (!GetCharacterMovement()->IsFalling())
 	{
 		UnPossessed();
 		GetMesh()->SetSimulatePhysics(true);
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		 
-	}
 
-	if (!GetCharacterMovement()->IsFalling())
-	{
 		GetWorldTimerManager().ClearTimer(FallingTimer);
 	}
-}
+		
 
+}
 
 
 
