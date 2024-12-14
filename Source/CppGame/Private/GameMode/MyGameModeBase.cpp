@@ -2,14 +2,18 @@
 
 
 #include "GameMode/MyGameModeBase.h"
+#include "GameMode/MainPlayerHUD.h"// Подключаем Header у AMainPlayerHUD.
 
-AMyGameModeBase::AMyGameModeBase() : Super() // Вызываем сначало родительскую, 
-{											// реализацию это всегда хорошо.
+AMyGameModeBase::AMyGameModeBase() : Super() 
+{											
 	ConstructorHelpers::FClassFinder<APawn>PlayerClass(TEXT("/Game/BluePrint/BP_PlayerCharacter"));
 
-	// ConstructorHelpers - Это класс помогает использовать из Content Browser в с++.
-	if (PlayerClass.Class != NULL) // Проверям что переменая PlayerClass в себе содержит что конкретное.
+	
+	if (PlayerClass.Class != NULL) 
 	{
 		DefaultPawnClass = PlayerClass.Class;// Устанавливаю BluePrint пешку в GameMode.
 	}	
+	HUDClass = AMainPlayerHUD::StaticClass();// Устанавливаем HUDClass который хранит сылку на класс,
+	//виджета из движка не путать с экземаляром как класс виджета  по умолчанию.
+	
 }
