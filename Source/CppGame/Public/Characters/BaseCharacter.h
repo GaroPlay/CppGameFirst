@@ -48,15 +48,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Settings")
 	 UAnimMontage* AnimMontageDeath;// Тип данных, знак(*) обезательно, уникальное имя.
 	
-
-	
 	void Damage();
-
     UFUNCTION(BlueprintCallable)
 	void OnDead();
-	
+
 	void PlayerPosses();
-
-
 	FTimerHandle FallingTimer;
 };

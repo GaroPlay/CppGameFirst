@@ -86,10 +86,8 @@ void ABaseCharacter::Damage()
 		HealtComponent->Damage(TimerRate * DamegePerSecond);
 	}
 	//  Снизу дебаг не забыть убрать !!!
-	 GEngine->AddOnScreenDebugMessage(-1, 0.1, FColor::Red, FString::FromInt(GetHealt()));// не забыть удалить это Print String
-	
+	 GEngine->AddOnScreenDebugMessage(-1, 0.1, FColor::Red, FString::FromInt(GetHealt()));// не забыть удалить это Print String	
 }
-
 void ABaseCharacter::OnDead()
 {
 	if (AnimMontageDeath != nullptr) 
@@ -97,8 +95,7 @@ void ABaseCharacter::OnDead()
 		PlayAnimMontage(AnimMontageDeath);	
 	} 	
 	
-	GetWorldTimerManager().SetTimer(ABaseCharacter::FallingTimer, this, &ABaseCharacter::PlayerPosses, 0.1f, true, 0.0);
-	
+	GetWorldTimerManager().SetTimer(ABaseCharacter::FallingTimer, this, &ABaseCharacter::PlayerPosses, 0.1f, true, 0.0);	
 }
 void ABaseCharacter::PlayerPosses()
 {
@@ -108,11 +105,8 @@ void ABaseCharacter::PlayerPosses()
 		UnPossessed();
 		GetMesh()->SetSimulatePhysics(true);
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
 		GetWorldTimerManager().ClearTimer(FallingTimer);
 	}
-		
-
 }
 
 

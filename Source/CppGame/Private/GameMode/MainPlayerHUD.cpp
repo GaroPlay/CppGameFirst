@@ -14,17 +14,13 @@ AMainPlayerHUD::AMainPlayerHUD(): Super()// ¬ызвать родительскию реализацию конс
 		  // widget который  мы создали в движке, мы записываем в это поле экземпл€р,
 		  // нашего из движка виджет. 
 }
-void AMainPlayerHUD::BeginPlay()
+void AMainPlayerHUD::BeginPlay() 
 {
-	Super::BeginPlay();//вызываю родительскую реализацию,
-	// метода BeginPlay ту не на выбор.
-	if (HUDClass != nullptr) // “ут провер€м что поле класса HUD которое вмещ€ет в себ€ главный,
-	{// виджет из движка содержит конкретный экземпл€р и путь  ("/Game/UI/WBP_HUD") оказалс€ не пуст.
-	
+	Super::BeginPlay();
+	if (HUDClass != nullptr) 
+	{
 		UUserWidget* Widget = CreateWidget <UUserWidget>(GetWorld(), HUDClass);
-		// «апись сверху создает экземл€р виджета что располагаетс€ в HUDClass, и записывает,
-		// его в указатель c именем Widget, GetWorld() -  указатель на текущий мир или сцену в игре,
-		// обычно эту часть не трогают.
+		
 		if (Widget) //ѕроверка что тут Widget не пустышка.
 		{
 			Widget->AddToViewport();// вывод Widget на монитор,
