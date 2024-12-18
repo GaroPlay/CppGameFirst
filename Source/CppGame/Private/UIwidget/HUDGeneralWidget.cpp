@@ -8,14 +8,14 @@
 FText UHUDGeneralWidget::GetHealt()
 {
 	ABaseCharacter* Character = Cast <ABaseCharacter>(GetPawn());// Это Cast тут актора приводим к наследнику Pawn.
-	return FloatToFText(Character->GetHealt(),0);
+	return FloatToFText(Character->GetHealt(),2,0);
 
 }
 
 FText UHUDGeneralWidget::GetCountApples()
 {
 	ABaseCharacter* Character = Cast <ABaseCharacter>(GetPawn());
-	return FloatToFText(Character->GetCountFoods());
+	return FloatToFText(Character->GetCountFoods(),1);// тут
 }
 
 FText UHUDGeneralWidget::GetTimerText()
@@ -30,11 +30,11 @@ FText UHUDGeneralWidget::GetTimerText()
 	// из класса FTimespan соберет из этих секунд минуты и часы и запишет это в переменую с, 
 	// уникальным именем Timespan (Timespan это не число а структура из чисел).
 
-	FText Hours = FloatToFText (Timespan.GetHours());
-	FText Minutes = FloatToFText(Timespan.GetMinutes());
-	FText Seconds = FloatToFText(Timespan.GetSeconds());
+	FText Hours = FloatToFText (Timespan.GetHours(),2);
+	FText Minutes = FloatToFText(Timespan.GetMinutes(),2);
+	FText Seconds = FloatToFText(Timespan.GetSeconds(),2);
 	// Сверху из структуры Timespan мы получаем часы минуты и секунды и записываем их в переменые с типом текст.
-	FText SantiSeconds = FloatToFText(SantiSecondsValue);
+	FText SantiSeconds = FloatToFText(SantiSecondsValue,2);
 
 	FString StringFormat("Test Version (1.0.0):: {Hours}:{Minutes}:{Seconds}.{SantiSeconds}");
 	// Сначало создаем щаблон то что в скобках заменится на переменые остольное останется не изменым.
@@ -45,11 +45,11 @@ FText UHUDGeneralWidget::GetTimerText()
 	// ей подаем FTextFormat Format, и переменые которы встанут на место {Hours} {Minutes}.
 }
 
-FText UHUDGeneralWidget::FloatToFText(float Value, int CollichestvoZnacovPosleZapytoi)
+FText UHUDGeneralWidget::FloatToFText (float Value,int CollichestvoZnacovDoZapytoi, int CollichestvoZnacovPosleZapytoi)
 {
  // Value - пердоваемое сюда число которое привратится в строку.
 // CollichestvoZnacovPosleZapytoi - до кокого знака округлять Value.
-	return UKismetTextLibrary::Conv_FloatToText(Value, ERoundingMode::FromZero, false, false,1,324,0, CollichestvoZnacovPosleZapytoi);
+	return UKismetTextLibrary::Conv_FloatToText(Value, ERoundingMode::FromZero, false, false, CollichestvoZnacovDoZapytoi,324,0, CollichestvoZnacovPosleZapytoi);
 //UKismetTextLibrary::Conv_FloatToText - статик функция из #include "Kismet/KismetTextLibrary.h".
 // ERoundingMode::FromZero - Определяет способ округления числа, к ближайщему числу.
 // false - использовать запятую в числе.

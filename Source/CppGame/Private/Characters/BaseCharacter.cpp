@@ -86,7 +86,7 @@ void ABaseCharacter::Damage()
 		HealtComponent->Damage(TimerRate * DamegePerSecond);
 	}
 	//  Снизу дебаг не забыть убрать !!!
-	 GEngine->AddOnScreenDebugMessage(-1, 0.1, FColor::Red, FString::FromInt(GetHealt()));// не забыть удалить это Print String	
+	// GEngine->AddOnScreenDebugMessage(-1, 0.1, FColor::Red, FString::FromInt(GetHealt()));// не забыть удалить это Print String	
 }
 void ABaseCharacter::OnDead()
 {

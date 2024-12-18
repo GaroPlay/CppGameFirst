@@ -23,5 +23,5 @@ protected:
 	UFUNCTION(BlueprintCallable,BlueprintPure)
 	FText GetTimerText();
 
-	FText FloatToFText(float Value, int CollichestvoZnacovPosleZapytoi = 2);
+	FText FloatToFText(float Value, int CollichestvoZnacovDoZapytoi=2,int CollichestvoZnacovPosleZapytoi = 2);
 };
