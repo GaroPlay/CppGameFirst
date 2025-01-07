@@ -54,12 +54,17 @@ void UHUDGeneralWidget::UpdatePanelEnemis(UPanelWidget* Panel, TSubclassOf <AAct
 	{
 		//////////////////////////////////Remainder
 
-		/*OutActors.Sort([](const AActor& A, const AActor& B) {
-			if (A.GetName() < B.GetName()) return false;
-			return true;
-		});*/	
+		FString NameP;
 
-		auto NameP = GetOwningPlayerPawn()->GetName();
+		if (IsValid(GetOwningPlayerPawn()))
+		{
+			NameP = GetOwningPlayerPawn()->GetName();
+		}
+		else 
+		{
+			 NameP = "";
+		}
+
 		OutActors.Sort([NameP](const AActor& A, const AActor& B) {
 
 			if (A.GetName() < NameP) return false;

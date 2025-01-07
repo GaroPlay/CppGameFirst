@@ -17,6 +17,9 @@ public:
 
 	float GetAddedHealth()const;
 
+	
+
+
 
 
 private: // ֲ Header-פאיכו.

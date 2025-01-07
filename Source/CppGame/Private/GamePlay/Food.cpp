@@ -5,6 +5,7 @@
 
 #include "Interfaces/ActionsCharacter.h"
 
+
 // Sets default values
 AFood::AFood()
 {
@@ -25,6 +26,8 @@ float AFood::GetAddedHealth() const // Тут есть проблема
 	return AddedHealth;
 }
 
+
+
 void AFood::OnPickup(UPrimitiveComponent* OverLappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyUndex, bool bFromSweep, const FHitResult & SweepResult)
 {
@@ -32,6 +35,8 @@ void AFood::OnPickup(UPrimitiveComponent* OverLappedComponent, AActor* OtherActo
 	IActionsCharacter::Execute_AddHealt(OtherActor,AddedHealth);
 	Destroy();
 }
+
+
 
 
 
