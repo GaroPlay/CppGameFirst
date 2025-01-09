@@ -19,7 +19,10 @@ void AMainPlayerHUD::BeginPlay()
 	Super::BeginPlay();
 	if (HUDClass != nullptr) //Проверяем что HUDClass существует.
 	{
-		UUserWidget* Widget = CreateWidget <UUserWidget> (GetWorld(), HUDClass);
+
+		
+
+		Widget = CreateWidget  <UUserWidget> (GetWorld(), HUDClass);
 		// UUserWidget* Widget = Создаем указатель в которой поместим экземпляр.
 		//  Функция CreateWidget <Тут тип данных которого тот от кого содадут экземпляр>.
 		//   HUDClass - Это тот от кого создадут экземпляр

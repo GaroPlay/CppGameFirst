@@ -18,11 +18,18 @@ public:
 	
 	ABaseCharacter();
 
+
+	UFUNCTION(BlueprintNativeEvent)
+	void OnEating();
+	
+
+
+
 	UFUNCTION(BlueprintNativeEvent)
 	FText GetName(); // Предупреждение для интерфиейса это норма
 	virtual FText GetName_Implementation() override;
 
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent,BlueprintCallable)
 	float GetCountFoods();
 	virtual float GetCountFoods_Implementation() override;
 
@@ -34,7 +41,10 @@ public:
 	bool IsDead();
 	virtual bool IsDead_Implementation() override;
 
-	
+	UFUNCTION(BlueprintNativeEvent)
+	void OnEventDead();
+
+
 
 
 	UFUNCTION(BlueprintNativeEvent)
@@ -53,10 +63,15 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Settings",BlueprintReadOnly)
+	int CountWinFoods; // ТУТ
 
 private:
 	int CountFoods;
+
+
 	float TimerRate;
+
 
 	UPROPERTY(VisibleAnywhere)// Обезательно.
 	UHealtComponent* HealtComponent;

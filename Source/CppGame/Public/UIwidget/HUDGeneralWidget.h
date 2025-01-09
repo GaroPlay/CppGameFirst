@@ -19,14 +19,20 @@ public:
 
 protected:
 	
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	int GetCountApplesInt();
+
 	UFUNCTION(BlueprintCallable,BlueprintPure)
 	FText GetCountApples();
 
 	UFUNCTION(BlueprintCallable,BlueprintPure)
 	FText GetTimerText();
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	FText GetNameCpp();
+
 	UFUNCTION(BlueprintCallable)
-	void UpdatePanelEnemis(UPanelWidget * Panel, TSubclassOf <AActor> FindClass, TSubclassOf <UBasePlaUserWidget> WidgetEnemyClass);
+	void UpdatePanelEnemis(UPanelWidget * Panel, UPanelWidget* PanelTwo, TSubclassOf <AActor> FindClass, TSubclassOf <UBasePlaUserWidget> WidgetEnemyClass, TSubclassOf <UBasePlaUserWidget> WidgetYouWinClass);
 
-
+	
 };

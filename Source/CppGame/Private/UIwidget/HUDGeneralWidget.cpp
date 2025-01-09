@@ -9,7 +9,19 @@
 #include "Interfaces/InfoCharacter.h"
 
 
-FText UHUDGeneralWidget::GetCountApples() 
+int UHUDGeneralWidget::GetCountApplesInt()
+{
+	if (GetMainActor() != nullptr)
+	{
+		return (IInfoCharacter::Execute_GetCountFoods(GetMainActor()));
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+FText UHUDGeneralWidget::GetCountApples()
 {
 	
 
@@ -18,6 +30,19 @@ FText UHUDGeneralWidget::GetCountApples()
 		return FloatToFText(IInfoCharacter::Execute_GetCountFoods(GetMainActor()), 1);
 	}
 	else 
+	{
+		return FText();
+	}
+}
+
+
+FText UHUDGeneralWidget::GetNameCpp()
+{
+	if (GetMainActor() != nullptr)
+	{
+		return IInfoCharacter::Execute_GetName(GetMainActor());
+	}
+	else
 	{
 		return FText();
 	}
@@ -45,7 +70,7 @@ FText UHUDGeneralWidget::GetTimerText()
 	// ей подаем FTextFormat Format, и переменые которы встанут на место {Hours} {Minutes}.
 }
 ////////////////////////////////// REMAINDER 
-void UHUDGeneralWidget::UpdatePanelEnemis(UPanelWidget* Panel, TSubclassOf <AActor> FindClass, TSubclassOf <UBasePlaUserWidget> WidgetEnemyClass)
+void UHUDGeneralWidget::UpdatePanelEnemis (UPanelWidget* Panel, UPanelWidget* PanelTwo, TSubclassOf <AActor> FindClass, TSubclassOf <UBasePlaUserWidget> WidgetEnemyClass, TSubclassOf <UBasePlaUserWidget> WidgetYouWinClass)
 {
 	 TArray <AActor*> OutActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), FindClass, OutActors);
@@ -73,6 +98,13 @@ void UHUDGeneralWidget::UpdatePanelEnemis(UPanelWidget* Panel, TSubclassOf <AAct
 	
 		//////////////////////////////////Remainder
 
+		if (WidgetYouWinClass != nullptr) 
+		{
+		UBasePlaUserWidget* YouWin = CreateWidget < UBasePlaUserWidget > (this, WidgetYouWinClass);
+		PanelTwo->AddChild(YouWin);
+		
+		}
+		
 
 		for (AActor* Actor : OutActors) 
 		{
@@ -81,8 +113,11 @@ void UHUDGeneralWidget::UpdatePanelEnemis(UPanelWidget* Panel, TSubclassOf <AAct
 			Panel->AddChild(Enemy);//Добавляем дочерний Widget к родительскому.
 			Enemy->SetMainActor(Actor);
 		}
+
+	
 	}
 }
+
 
 
 

@@ -23,8 +23,15 @@ ABaseCharacter::ABaseCharacter() : Super()
 
 	HealtComponent->DispatcherDead.AddDynamic ( this, &ABaseCharacter::OnDead);
 
+	CountWinFoods = 25;
+}
+
+void ABaseCharacter::OnEating_Implementation()
+{
 
 }
+
+
   
 FText ABaseCharacter::GetName_Implementation()
 {
@@ -54,6 +61,11 @@ bool ABaseCharacter::IsDead_Implementation()
 	return 0;
 }
 
+void ABaseCharacter::OnEventDead_Implementation()
+{
+
+}
+
 
 
 void ABaseCharacter::AddHealt_Implementation(float AddedHealt)
@@ -81,6 +93,7 @@ void ABaseCharacter::EatFood_Implementation()
 				UGameplayStatics::PlaySoundAtLocation(this, Sound, GetActorLocation(), 0.1); // Тут Меняем громкость !!!
 			}			
 		}
+		OnEating( );
 }
 
 // Called when the game starts or when spawned
@@ -97,9 +110,14 @@ void ABaseCharacter::Damage()
 	if (HealtComponent != nullptr)
 	{
 		HealtComponent->Damage(TimerRate * DamegePerSecond);
+		if (HealtComponent->GetHealt() <= 0) 
+		{
+			OnEventDead();
+		}
 	}
 	//  Снизу дебаг не забыть убрать !!!
 	// GEngine->AddOnScreenDebugMessage(-1, 0.1, FColor::Red, FString::FromInt(GetHealt()));// не забыть удалить это Print String	
+
 }
 void ABaseCharacter::OnDead()
 {

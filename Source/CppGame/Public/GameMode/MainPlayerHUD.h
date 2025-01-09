@@ -18,6 +18,9 @@ class CPPGAME_API AMainPlayerHUD : public AHUD
 	// Также этот класс надо настроить и подключить в GameMode.
 public:
 	AMainPlayerHUD();// Объевляем конструктор этого класса.
+	
+	UPROPERTY(BlueprintReadOnly);
+	UUserWidget* Widget;
 protected: 
 	 virtual void BeginPlay() override;// Это BeginPlay у данного класса удивительно он,
 			   	   // этот метод наследует от класса Actor(тоесть от родителя родителя).
@@ -27,4 +30,6 @@ private:
 								// UUserWidget - Этот тип данных вмещяет в себя тот Widget что мы создали в движке,
 	// TSubclassOf<class UUserWidget>  - Создаст поле или сылку которая своим типом вместит в себя UUserWidget,
    // что мы создали в движке.
+
+
 };
