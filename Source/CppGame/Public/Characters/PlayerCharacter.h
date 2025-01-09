@@ -2,12 +2,13 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "Characters/BaseCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h" // Это для IsFalling
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "PlayerCharacter.generated.h"
-
 /**
  * 
  */
@@ -19,6 +20,12 @@ class CPPGAME_API APlayerCharacter : public ABaseCharacter
 public:
 
 	APlayerCharacter();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	UCharacterMovementComponent* OurCharacterMovementComponent;
+
+
+
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

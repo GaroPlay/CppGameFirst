@@ -3,6 +3,7 @@
 
 #include "Characters/PlayerCharacter.h"
 
+
 APlayerCharacter::APlayerCharacter():Super()
 {
 
@@ -22,6 +23,8 @@ APlayerCharacter::APlayerCharacter():Super()
 	CameraBoom->bUsePawnControlRotation = true;// Многие параметры из BluePrint можно использовать тут.
 	FollowCamera->bUsePawnControlRotation = false;
 
+	OurCharacterMovementComponent = GetCharacterMovement(); // Получаем компонент движения
+
 }
 
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -40,10 +43,16 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::Jump()	  {
 	bPressedJump = true;
+	//GEngine->AddOnScreenDebugMessage(-1, 0.5, FColor::Red,TEXT(" bPressedJump "));
+
+
+	bool IsCharacterFalling = OurCharacterMovementComponent->IsFalling();
+	if (IsCharacterFalling) return;
 
 	if (AnimMontageJump != nullptr) {
 		PlayAnimMontage(AnimMontageJump);
 	}
+
 }
 
 void APlayerCharacter::StopJump() {
