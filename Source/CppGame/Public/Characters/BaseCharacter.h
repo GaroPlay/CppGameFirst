@@ -22,6 +22,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void OnEating();
 	
+	UFUNCTION(BlueprintNativeEvent)
+	void OnEventDead();
 
 
 
@@ -40,10 +42,6 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	bool IsDead();
 	virtual bool IsDead_Implementation() override;
-
-	UFUNCTION(BlueprintNativeEvent)
-	void OnEventDead();
-
 
 
 

@@ -25,6 +25,7 @@ APlayerCharacter::APlayerCharacter():Super()
 
 	OurCharacterMovementComponent = GetCharacterMovement(); // Получаем компонент движения
 
+
 }
 
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
