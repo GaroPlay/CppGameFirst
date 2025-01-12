@@ -19,6 +19,7 @@ int UHUDGeneralWidget::GetCountApplesInt()
 	{
 		return 0;
 	}
+	
 }
 
 FText UHUDGeneralWidget::GetCountApples()

@@ -22,7 +22,7 @@ void ASpawner::BeginPlay()// Реализуем BeginPlay.
 {
 	Super::BeginPlay();// Вызываем родительскую реализацию метода.
 	FTimerHandle TimerHadle;// Объявляем таймер и снизу реализуем.
-	GetWorldTimerManager().SetTimer(TimerHadle, this, &ASpawner::Spawn, 1, !bIsOnse, 0);
+	GetWorldTimerManager().SetTimer(TimerHadle, this, &ASpawner::Spawn, 2, !bIsOnse, 0);
 }
 void ASpawner::Spawn()//Этот клас вызывает SpawnActor указаное GameDisagner количество раз.
 {
@@ -33,10 +33,7 @@ void ASpawner::Spawn()//Этот клас вызывает SpawnActor указаное GameDisagner коли
 		// С верху это кординаты куда заспавнить Actor естествено в нутри нашего BoxCollision.
 		// Это функция полный аналог ноды Random Point in Bounding Box.
 		GetWorld()->SpawnActor <AActor>(SpawnClass, Location, Rotation);//Эта функция полный эквивалент,
-		// ноды (Spawn Actor from Class)  
-		// <AActor> - Тут надо указать тип данных объекта который хочеш заспавнить,
-		// SpawnClass - Сюда название класса который хотим спавнить можеш взять из Header-файла только убери префикс.
-		// GetWorld()->SpawnActor - Это синтаксис.
+		//GEngine->AddOnScreenDebugMessage(-1, 1, FColor::Red, TEXT("Spawn"));
 	}
 }
 

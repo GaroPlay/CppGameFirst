@@ -78,8 +78,8 @@ void AEatAIController::Eat()
 		return;
 	}	
 	 
-	 FAIMoveRequest MoveRequest (NearestFood);
-	 MoveRequest.SetAcceptanceRadius(5);
+	 FAIMoveRequest MoveRequest (NearestFood); // На эту строчку выдало краш 
+	 MoveRequest.SetAcceptanceRadius(20);
 
 	 MoveTo(MoveRequest);
 	// GEngine->AddOnScreenDebugMessage(-1, 15, FColor::Red, FString::Printf(TEXT("MoveTo")));
@@ -122,7 +122,7 @@ AActor* AEatAIController::GetNearestFood()
 
 		if (FoodActor)
 		{
-			if (FoodActor->GetDistanceTo(GetPawn()) < 1300.0f)
+			if (FoodActor->GetDistanceTo(GetPawn()) < 1300.0f) // Тестим 
 			{
 				NearesFoodsArray.Add(FoodActor);
 			}
