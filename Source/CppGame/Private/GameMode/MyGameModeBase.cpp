@@ -6,13 +6,14 @@
 
 AMyGameModeBase::AMyGameModeBase() : Super() 
 {											
-	ConstructorHelpers::FClassFinder<APawn>PlayerClass(TEXT("/Game/BluePrint/BP_PlayerCharacter"));
+	ConstructorHelpers::FClassFinder<APawn>PlayerClass(TEXT("/Game/BluePrint/Igrock/BP_PlayerCharacter"));
 
 	
 	if (PlayerClass.Class != NULL) 
 	{
 		DefaultPawnClass = PlayerClass.Class;// ”станавливаю BluePrint пешку в GameMode.
-	}	
+	}
+
 	HUDClass = AMainPlayerHUD::StaticClass();// ”станавливаем HUDClass который хранит сылку на класс,
 	//виджета из движка не путать с экземал€ром как класс виджета  по умолчанию.
 	

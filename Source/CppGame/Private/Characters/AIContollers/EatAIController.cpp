@@ -39,7 +39,7 @@ void AEatAIController::CheckFood()
 	
 		NearestFood = NewNearestFood;
 		FAIMoveRequest MoveRequest(NewNearestFood);
-		MoveRequest.SetAcceptanceRadius(5);
+		MoveRequest.SetAcceptanceRadius(10);
 		MoveTo(MoveRequest);
 }
 
@@ -72,16 +72,17 @@ void AEatAIController::MoveToRandom()
 
 void AEatAIController::Eat()
 {
-	if (!IsValid(NearestFood)) 
+	if (!IsValid(NearestFood)|| NearestFood==nullptr) 
 	{
 		StartEatWitchDelay();
 		return;
 	}	
 	 
 	 FAIMoveRequest MoveRequest (NearestFood); // На эту строчку выдало краш 
-	 MoveRequest.SetAcceptanceRadius(20);
+	 MoveRequest.SetAcceptanceRadius(25);
 
 	 MoveTo(MoveRequest);
+
 	// GEngine->AddOnScreenDebugMessage(-1, 15, FColor::Red, FString::Printf(TEXT("MoveTo")));
 }
 
