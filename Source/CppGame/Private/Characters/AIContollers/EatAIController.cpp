@@ -18,7 +18,7 @@ void AEatAIController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);// Вызываем родительскую реализацию.
 	Eat();
 	FTimerHandle TimerHandle;
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AEatAIController::CheckFood, 0.5, true, 0);
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AEatAIController::CheckFood, 1, true, 0);
 }
 
 
@@ -27,7 +27,7 @@ void AEatAIController::CheckFood()
 	
 	AActor* NewNearestFood = GetNearestFood();
 
-	if (!IsValid(NewNearestFood)) 
+	if (!IsValid(NewNearestFood) || NewNearestFood == nullptr)
 	{
 		MoveToRandom();
 		return;
@@ -38,8 +38,9 @@ void AEatAIController::CheckFood()
 	}
 	
 		NearestFood = NewNearestFood;
-		FAIMoveRequest MoveRequest(NewNearestFood);
-		MoveRequest.SetAcceptanceRadius(10);
+		FAIMoveRequest MoveRequest(NearestFood); // тут было NewNearestFood Это странно
+
+		MoveRequest.SetAcceptanceRadius(15);
 		MoveTo(MoveRequest);
 }
 
@@ -72,14 +73,14 @@ void AEatAIController::MoveToRandom()
 
 void AEatAIController::Eat()
 {
-	if (!IsValid(NearestFood)|| NearestFood==nullptr) 
+	if (!IsValid(NearestFood)|| NearestFood!=nullptr) 
 	{
 		StartEatWitchDelay();
 		return;
 	}	
 	 
 	 FAIMoveRequest MoveRequest (NearestFood); // На эту строчку выдало краш 
-	 MoveRequest.SetAcceptanceRadius(25);
+	 MoveRequest.SetAcceptanceRadius(15);
 
 	 MoveTo(MoveRequest);
 
@@ -89,7 +90,7 @@ void AEatAIController::Eat()
 void AEatAIController::StartEatWitchDelay()
 {
 	FTimerHandle TimerHandleEat;
-	GetWorldTimerManager().SetTimer(TimerHandleEat, this, &AEatAIController::Eat, 0.1, false, 0);
+	GetWorldTimerManager().SetTimer(TimerHandleEat, this, &AEatAIController::Eat, 0.2, false, 0);
 	//GEngine->AddOnScreenDebugMessage(-1, 15, FColor::Green, FString::Printf(TEXT("StartEatWitchDelay")));
 }
 
@@ -133,7 +134,7 @@ AActor* AEatAIController::GetNearestFood()
 	if (NearesFoodsArray.IsEmpty()) return nullptr;
 
 
-	APawn* MainActor = GetPawn();
+	
 	ABaseCharacter* CharacterHealt = Cast <ABaseCharacter>(GetPawn());// Это каст
 
 	
@@ -152,5 +153,18 @@ AActor* AEatAIController::GetNearestFood()
 			
 		return GetFoodCost(A) > GetFoodCost(B);
 	});
+
+
+	// Отладка
+	FString Name = NearesFoodsArray[0]->GetName();
+	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Red, FString::FString(Name));
+	// Отладка
+
+	// попытка гарантировать что от сюда не будет передан null
+	if (NearesFoodsArray[0] == nullptr) 
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Black, TEXT("NearesFoodsArray[0] --- IS Not Valid"));
+		return NearesFoodsArray.Last();
+	}
 	return NearesFoodsArray[0];
 }
