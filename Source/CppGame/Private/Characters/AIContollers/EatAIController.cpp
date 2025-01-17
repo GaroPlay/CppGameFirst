@@ -18,7 +18,7 @@ void AEatAIController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);// Вызываем родительскую реализацию.
 	Eat();
 	FTimerHandle TimerHandle;
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &AEatAIController::CheckFood, 1, true, 0);
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &AEatAIController::CheckFood, 0.5f, true, 0);
 }
 
 
@@ -157,13 +157,13 @@ AActor* AEatAIController::GetNearestFood()
 
 	// Отладка
 	FString Name = NearesFoodsArray[0]->GetName();
-	GEngine->AddOnScreenDebugMessage(-1, 3, FColor::Red, FString::FString(Name));
+
 	// Отладка
 
 	// попытка гарантировать что от сюда не будет передан null
 	if (NearesFoodsArray[0] == nullptr) 
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Black, TEXT("NearesFoodsArray[0] --- IS Not Valid"));
+		
 		return NearesFoodsArray.Last();
 	}
 	return NearesFoodsArray[0];
